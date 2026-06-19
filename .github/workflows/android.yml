@@ -26,7 +26,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: gradle
-
+    - name: Install libncurses5
+      run: |
+              sudo apt-get update
+              sudo apt-get install -y libncurses5 2>/dev/null || \
+              sudo ln -sf /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+              sudo ln -sf /usr/lib/x86_64-linux-gnu/libtinfo.so.6 /usr/lib/x86_64-linux-gnu/libtinfo.so.5
     - name: Grant execute permission for gradlew
       run: /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager "platforms;android-23" && chmod +x gradlew 
     - name: Build with Gradle
